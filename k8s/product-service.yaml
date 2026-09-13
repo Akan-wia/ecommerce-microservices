@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: product-service
-        image: product-service-img:latest
+        image: chunmundragon/order-service-img:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8000

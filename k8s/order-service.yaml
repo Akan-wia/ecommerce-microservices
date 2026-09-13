@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: order-service
-        image: order-service-img:latest
+        image: chunmundragon/order-service-img:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8001

@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: api-gateway
-        image: api-gateway-img:latest
+        image: chunmundragon/order-service-img:latest
         imagePullPolicy: Always
         env:
         - name: PRODUCT_SERVICE_URL

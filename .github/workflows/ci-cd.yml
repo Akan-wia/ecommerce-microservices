@@ -5,20 +5,38 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build-and-deploy:
+  build-and-push:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build Microservices Images
-        run: |
-          docker build -t api-gateway-img:latest ./api-gateway
-          docker build -t order-service-img:latest ./order-service
-          docker build -t product-service-img:latest ./product-service
+      - name: Build and Push API Gateway
+        uses: docker/build-push-action@v5
+        with:
+          context: ./api-gateway
+          push: true
+          tags: chunmundragon/api-gateway-img:latest
 
-      - name: Verify Builds
-        run: docker images
+      - name: Build and Push Order Service
+        uses: docker/build-push-action@v5
+        with:
+          context: ./order-service
+          push: true
+          tags: chunmundragon/order-service-img:latest
+
+      - name: Build and Push Product Service
+        uses: docker/build-push-action@v5
+        with:
+          context: ./product-service
+          push: true
+          tags: chunmundragon/product-service-img:latest
